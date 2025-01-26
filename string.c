@@ -75,17 +75,11 @@ char* strcpy(char* restrict s1, const char* restrict s2) {
 }
 
 size_t strcspn(const char* s1, const char* s2) {
-    size_t count = 0, Len = 0;
-    for (; s2[Len] != '\0'; ++Len);
-    for (size_t i = 0; s1[i] != '\0'; ++i)
-        for (size_t j = 0; s2[j] != '\0'; ++j) {
-            if (s1[i] == s2[j]) {
-                count++;
-                break;
-            }
-            if (s1[i] != s2[j] && j + 1 == Len)
+    size_t count = 0;
+    for (size_t i = 0; s1[i] != '\0'; ++i, ++count)
+        for (size_t j = 0; s2[j] != '\0'; ++j)
+            if (s1[i + j] == s2[j])
                 return count;
-        }
     return count;
 }
 
@@ -133,9 +127,11 @@ size_t strspn(const char* s1, const char* s2) {
     for (; s2[Len] != '\0'; ++Len);
     for (size_t i = 0; s1[i] != '\0'; ++i)
         for (size_t j = 0; s2[j] != '\0'; ++j) {
-            if (s1[i + j] == s2[j])
+            if (s1[i] == s2[j]) {
                 count++;
-            if (s1[i + j] != s2[j] && j == Len)
+                break;
+            }
+            if (s1[i] != s2[j] && j == Len - 1)
                 return count;
         }
     return count;
