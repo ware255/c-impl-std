@@ -7,5 +7,6 @@ typedef unsigned int size_t;
 size_t strlen(const char* str);
 char* strcpy(char* restrict s1, const char* restrict s2);
 void* memcpy(void* restrict s1, const void* restrict s2, size_t size);
+char* strtok(char* restrict str, const char* restrict set);
 
 #endif // _STDLIB_H_

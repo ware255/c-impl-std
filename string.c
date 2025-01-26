@@ -21,3 +21,28 @@ void* memcpy(void* restrict s1, const void* restrict s2, size_t size) {
     return s1;
 }
 
+char* strtok(char* restrict str, const char* restrict set) {
+    static size_t pos = 0, oldpos = 0, strlen = 0;
+    static char* token = NULL;
+
+    oldpos = pos;
+
+    if (str != NULL) {
+        pos = 0, oldpos = 0, strlen = 0;
+        token = str;
+        while (*str++) strlen++;
+    }
+
+    for (size_t i = oldpos; token[i] != '\0'; ++i)
+        for (size_t j = 0; set[j] != '\0'; ++j)
+            if (token[i] == set[j]) token[i] = '\0';
+
+    for (; token[oldpos] == '\0'; ++oldpos)
+        if (strlen + 1 == oldpos) return NULL;
+
+    pos = oldpos;
+    for (; token[pos] != '\0'; ++pos);
+    pos += 1;
+
+    return token + oldpos;
+}
