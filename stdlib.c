@@ -3,10 +3,6 @@
 
 int abs(int n) { return n < 0 ? -n : n; }
 
-long int labs(long int n) { return n < 0 ? -n : n; }
-
-long long int llabs(long long int n) { return n < 0 ? -n : n; }
-
 int atoi(const char* str) {
     int n = 0, neg = 0;
     size_t i = 0;
