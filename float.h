@@ -1,0 +1,17 @@
+#ifndef _FLOAT_H_
+#define _FLOAT_H_
+
+#define DBL_DIG 15
+#define DBL_MAX 1.7976931348623158e+308
+#define DBL_MIN 2.2250738585072014e-308
+
+#define FLT_DIG 6
+#define FLT_MAX 3.402823466e+38f
+#define FLT_MIN 1.175494351e-38f
+#define FLT_ROUNDS 1
+
+#define LDBL_DIG 15
+#define LDBL_MAX 1.7976931348623158e+308
+#define LDBL_MIN 2.2250738585072014e-308
+
+#endif // _FLOAT_H_
