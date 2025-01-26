@@ -137,6 +137,14 @@ size_t strspn(const char* s1, const char* s2) {
     return count;
 }
 
+char* strstr(const char* s1, const char* s2) {
+    for (size_t i = 0; s1[i] != '\0'; ++i)
+        for (size_t j = 0; s2[j] != '\0'; ++j)
+            if (s1[i + j] == s2[j])
+                return (char*)s1 + i;
+    return NULL;
+}
+
 char* strtok(char* restrict str, const char* restrict set) {
     static size_t pos = 0, oldpos = 0, strlen = 0;
     static char* token = NULL;

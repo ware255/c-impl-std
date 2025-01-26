@@ -22,6 +22,7 @@ int strncmp(const char* s1, const char* s2, size_t n);
 char* strncpy(char* s1, const char* s2, size_t n);
 char* strrchr(const char* s, int c);
 size_t strspn(const char* s1, const char* s2);
+char* strstr(const char* s1, const char* s2);
 char* strtok(char* restrict str, const char* restrict set);
 
 #endif // _STRING_H_
