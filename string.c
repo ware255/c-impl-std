@@ -45,11 +45,10 @@ void* memset(void* s, int c, size_t n) {
 }
 
 char* strcat(char* restrict s1, const char* restrict s2) {
-    size_t s1Len = 0, s2Len = 0;
-    for (; s1[s1Len] != '\0'; ++s1Len);
-    for (; s2[s2Len] != '\0'; ++s2Len);
-    for (size_t i = s1Len; i < s1Len + s2Len + 1; ++i)
-        s1[i] = s2[i - s1Len];
+    char* s1_ = s1;
+    while (*s1_++);
+    for (s1_--; *s2 != 0; s2++)
+        *s1_++ = *s2;
     return s1;
 }
 
@@ -61,11 +60,12 @@ char* strchr(const char* s, int c) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-    for (size_t i = 0; s1[i] != '\0' || s2[i] != '\0'; ++i)
-        if (s1[i] != s2[i]) {
-            if (s1[i] > s2[i]) return 1;
+    while (*s1++ && *s2++) {
+        if (*s1 > *s2)
+            return 1;
+        else if (*s1 < *s2)
             return -1;
-        }
+    }
     return 0;
 }
 
@@ -91,22 +91,21 @@ size_t strlen(const char* str) {
 }
 
 char* strncat(char* restrict s1, const char* restrict s2, size_t n) {
-    size_t s1Len = 0, s2Len = 0;
-    for (; s1[s1Len] != '\0'; ++s1Len);
-    for (; s2[s2Len] != '\0'; ++s2Len);
-    if (n < s2Len) s2Len = n - 1;
-    for (size_t i = s1Len; i < s1Len + s2Len + 1; ++i)
-        s1[i] = s2[i - s1Len];
-    s1[s1Len + s2Len + 1] = '\0';
+    char* s1_ = s1;
+    while (*s1_++);
+    for (s1_--; *s2 != 0 && n > 0; s2++, n--)
+        *s1_++ = *s2;
+    *s1_++ = '\0';
     return s1;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
-    for (size_t i = 0; i < n || s1[i] != '\0' || s2[i] != '\0'; ++i)
-        if (s1[i] != s2[i]) {
-            if (s1[i] > s2[i]) return 1;
+    while (*s1++ && *s2++ && --n) {
+        if (*s1 > *s2)
+            return 1;
+        else if (*s1 < *s2)
             return -1;
-        }
+    }
     return 0;
 }
 
