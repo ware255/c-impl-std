@@ -2,43 +2,45 @@
 
 void* memchr(const void* s, int c, size_t n) {
     const unsigned char* s_ = s;
-    for (size_t i = 0; i < n; ++i)
-        if (s_[i] == c)
-            return (unsigned char*)s_ + i;
+    while (n--)
+        if (*s_ == c)
+            return (unsigned char*)s_;
+        else
+            s_ += 1;
     return NULL;
 }
 
 int memcmp(const void* s1, const void* s2, size_t size) {
     const unsigned char* s1_ = s1;
     const unsigned char* s2_ = s2;
-    for (size_t i = 0; i < size; ++i)
-        if (s1_[i] != s2_[i]) {
-            if (s1_[i] > s2_[i]) return 1;
+    while (size--)
+        if (*s1_ != *s2_) {
+            if (*s1_ > *s2_) return 1;
             return -1;
         }
+        else
+            s1_++, s2_++;
     return 0;
 }
 
 void* memcpy(void* restrict s1, const void* restrict s2, size_t size) {
     char* s1_ = s1;
     const char* s2_ = s2;
-    for (size_t i = 0; i < size; ++i)
-        s1_[i] = s2_[i];
+    while (size--) *s1_++ = *s2_++;
     return s1;
 }
 
 void* memmove(void* s1, const void* s2, size_t size) {
     char* s1_ = s1;
     const char* s2_ = s2;
-    for (size_t i = 0; i < size; ++i)
-        s1_[i] = s2_[i];
+    s1_ += size, s2_ += size;
+    while (size--) *--s1_ = *--s2_;
     return s1;
 }
 
 void* memset(void* s, int c, size_t n) {
     unsigned char* s_ = s;
-    for (size_t i = 0; i < n; ++i)
-        s_[i] = c;
+    while (n--) *s_++ = c;
     return s_;
 }
 
@@ -52,9 +54,9 @@ char* strcat(char* restrict s1, const char* restrict s2) {
 }
 
 char* strchr(const char* s, int c) {
-    for (size_t i = 0; s[i] != '\0'; ++i)
-        if (s[i] == c)
-            return (char*)s + i;
+    while (*s++)
+        if (*s == c)
+            return (char*)s;
     return NULL;
 }
 
