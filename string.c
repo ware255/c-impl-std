@@ -24,15 +24,15 @@ int memcmp(const void* s1, const void* s2, size_t size) {
 }
 
 void* memcpy(void* restrict s1, const void* restrict s2, size_t size) {
-    char* s1_ = s1;
-    const char* s2_ = s2;
+    unsigned char* s1_ = s1;
+    const unsigned char* s2_ = s2;
     while (size--) *s1_++ = *s2_++;
     return s1;
 }
 
 void* memmove(void* s1, const void* s2, size_t size) {
-    char* s1_ = s1;
-    const char* s2_ = s2;
+    unsigned char* s1_ = s1;
+    const unsigned char* s2_ = s2;
     s1_ += size, s2_ += size;
     while (size--) *--s1_ = *--s2_;
     return s1;
@@ -117,9 +117,12 @@ char* strncpy(char* s1, const char* s2, size_t n) {
 
 char* strrchr(const char* s, int c) {
     size_t len = 0;
-    for (; s[len] != '\0'; ++len);
-    for (; s[len] != c; --len);
-    return (char*)s + len;
+    const char* s_ = s;
+    while (*s_++) len++;
+    for (len++; len > 0; s_--)
+        if (*s_ == c)
+            return (char*)s_;
+    return NULL;
 }
 
 size_t strspn(const char* s1, const char* s2) {
